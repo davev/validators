@@ -1,5 +1,11 @@
 require "validators/version"
 
+require "active_record"
+
+require "validators/url_validator"
+require "validators/email_validator"
+
 module Validators
-  # Your code goes here...
 end
+
+ActiveRecord::Base.send(:include, Validators)
