@@ -53,13 +53,16 @@ class UrlValidatorTest < ActiveSupport::TestCase
     @foo.url = "//www.a."
     refute @foo.valid?
 
-    @foo.url = "http//www."
+    @foo.url = "http://www."
     refute @foo.valid?
 
-    @foo.url = "http//www.a"
+    @foo.url = "http://www.a."
     refute @foo.valid?
 
-    @foo.url = "http//www.a."
+    @foo.url = "http://www.a.com."
+    refute @foo.valid?
+
+    @foo.url = "http://a.b.c.d.e."
     refute @foo.valid?
   end
 
