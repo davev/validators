@@ -1,11 +1,7 @@
 require "test_helper"
 
-class ValidatorsTest < Minitest::Test
-  def test_that_it_has_a_version_number
+class ValidatorsTest < ActiveSupport::TestCase
+  test "it has a version number" do
     refute_nil ::Validators::VERSION
-  end
-
-  def test_it_does_something_useful
-    assert false
   end
 end
