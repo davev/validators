@@ -55,6 +55,9 @@ class EmailValidatorTest < ActiveSupport::TestCase
 
     @foo.email = "a.b@c."
     refute @foo.valid?
+
+    @foo.email = "a.b@c.d."
+    refute @foo.valid?
   end
 
   test "default error message" do
