@@ -15,55 +15,49 @@ class UrlValidatorTest < ActiveSupport::TestCase
 
 
   test "valid url formats" do
-    @foo.url = "http://a.com"
-    assert @foo.valid?
+    valid_urls = %w(
+      http://a.com
+      http://www.a.com
+      https://www.a.longtld
+      http://a.b
+      http://a.b.c.d.e
+      http://www.a.com/
+      http://www.a.com/b
+      http://www.a.com/b/c
+      http://www.a.com/b/c.html
+      https://a.com
+      https://www.a.com
+      https://www.a.com/b
+    )
 
-    @foo.url = "http://www.a.com"
-    assert @foo.valid?
-
-    @foo.url = "https://www.a.longtld"
-    assert @foo.valid?
-
-    @foo.url = "http://a.b"
-    assert @foo.valid?
-
-    @foo.url = "http://a.b.c.d.e"
-    assert @foo.valid?
+    valid_urls.each do |url|
+      @foo.url = url
+      assert @foo.valid?, "expected #{url} to be valid"
+    end
   end
 
   test "invalid url formats" do
-    @foo.url = "a"
-    refute @foo.valid?
+    invalid_urls = %w(
+      a
+      a.com
+      www.a.com
+      //a.com
+      //www.a.com
+      //www
+      //www.
+      //www.a
+      http://www
+      http://www.
+      http//a.com
+      https://www
+      https://www.
+      https//a.b
+    )
 
-    @foo.url = "a.com"
-    refute @foo.valid?
-
-    @foo.url = "www.a.com"
-    refute @foo.valid?
-
-    @foo.url = "//a.com"
-    refute @foo.valid?
-
-    @foo.url = "//www.a.com"
-    refute @foo.valid?
-
-    @foo.url = "//www."
-    refute @foo.valid?
-
-    @foo.url = "//www.a."
-    refute @foo.valid?
-
-    @foo.url = "http://www."
-    refute @foo.valid?
-
-    @foo.url = "http://www.a."
-    refute @foo.valid?
-
-    @foo.url = "http://www.a.com."
-    refute @foo.valid?
-
-    @foo.url = "http://a.b.c.d.e."
-    refute @foo.valid?
+    invalid_urls.each do |url|
+      @foo.url = url
+      refute @foo.valid?, "expected #{url} to be invalid"
+    end
   end
 
   test "default error message" do
